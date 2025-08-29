@@ -6,9 +6,9 @@ from src.components.data_ingestion import DataIngestion
 from src.components.data_validation import DataValidation
 
 
-from src.entity.config_entity import (DataIngestionConfig, DataValidationConfig)
+from src.entity.config_entity import (DataIngestionConfig, DataValidationConfig,DataTransformationConfig)
                                           
-from src.entity.artifact_entity import (DataIngestionArtifact, DataValidationArtifact)
+from src.entity.artifact_entity import (DataIngestionArtifact, DataValidationArtifact,DataTransformationArtifact)
 
 
 
@@ -16,6 +16,7 @@ class TrainPipeline:
     def __init__(self):
         self.data_ingestion_config = DataIngestionConfig()
         self.data_validation_config = DataValidationConfig()
+        self.data_transformation_config = DataTransformationConfig()
         
 
     
