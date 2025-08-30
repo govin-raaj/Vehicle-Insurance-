@@ -1,6 +1,7 @@
 import sys
 from typing import Tuple
-
+import os
+import json
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
@@ -56,7 +57,7 @@ class ModelTrainer:
             precision=precision_score(y_test,y_pred)
             recall=recall_score(y_test,y_pred)
 
-            metric_artifact=ClassificationMetricArtifact(f1_score=f1,precision_score=precision,recall_score=recall)
+            metric_artifact=ClassificationMetricArtifact(accuracy=accuracy,f1_score=f1,precision_score=precision,recall_score=recall)
 
             return model,metric_artifact
         
@@ -76,7 +77,7 @@ class ModelTrainer:
                 
         try:
             print("_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_")
-            logging.info("Model training started")
+            logging.info("Entered Model training Component ")
             train_arr=load_numpy_array_data(file_path=self.data_tanformation_artifact.transformed_train_file_path)
             test_arr=load_numpy_array_data(file_path=self.data_tanformation_artifact.transformed_test_file_path)
             logging.info("train-test data loaded")
@@ -100,7 +101,29 @@ class ModelTrainer:
                 trained_model_file_path=self.model_trainer_config.trained_model_file_path,
                 metric_artifact=metric_artifact
             )
-            logging.info(f"Model trainer artifact: {model_trainer_artifact}")
+
+
+            report_dir = os.path.dirname(self.model_trainer_config.params_file_path)
+            os.makedirs(report_dir, exist_ok=True)
+
+            params_report = {
+                "n_estimators": self.model_trainer_config._n_estimators,
+                "min_samples_split": self.model_trainer_config._min_samples_split,  
+                "min_samples_leaf": self.model_trainer_config._min_samples_leaf,
+                "max_depth": self.model_trainer_config._max_depth,
+                "criterion": self.model_trainer_config._criterion,
+                "random_state": self.model_trainer_config._random_state,
+                "accuracy": metric_artifact.accuracy,
+                "f1_score": metric_artifact.f1_score,   
+                "precision": metric_artifact.precision_score,
+                "recall": metric_artifact.recall_score
+
+            }
+
+            with open(self.model_trainer_config.params_file_path, "w") as report_file:
+                json.dump(params_report, report_file, indent=4)
+
+            logging.info("Model trainer artifact created and params/scores stored in json file")
             return model_trainer_artifact
         
         except Exception as e:
