@@ -13,13 +13,13 @@ from src.entity.artifact_entity import DataTransformationArtifact, ModelTrainerA
 from src.entity.estimator import MyModel
 
 class ModelTrainer:
-    def __init__(self,data_tranformation_artifact:DataTransformationArtifact,
+    def __init__(self,data_transformation_artifact:DataTransformationArtifact,
                  model_trainer_config:ModelTrainerConfig):
         """
         :param data_transformation_artifact: Output reference of data transformation artifact stage
         :param model_trainer_config: Configuration for model training
         """  
-        self.data_tanformation_artifact = data_tranformation_artifact
+        self.data_tanformation_artifact = data_transformation_artifact
         self.model_trainer_config = model_trainer_config
 
 
