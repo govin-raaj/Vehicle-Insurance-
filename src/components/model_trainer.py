@@ -12,7 +12,7 @@ from src.entity.config_entity import ModelTrainerConfig
 from src.entity.artifact_entity import DataTransformationArtifact, ModelTrainerArtifact, ClassificationMetricArtifact
 from src.entity.estimator import MyModel
 
-class ModelTainer:
+class ModelTrainer:
     def __init__(self,data_tranformation_artifact:DataTransformationArtifact,
                  model_trainer_config:ModelTrainerConfig):
         """
