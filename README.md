@@ -1,4 +1,4 @@
-# 🚀 Vehicle Data MLOps Project
+# 🚀 Vehicle Insurance MLOps Project
 
 An **end-to-end MLOps pipeline** demonstrating modern machine learning practices – from **data ingestion, validation, transformation, training, model registry, CI/CD, to cloud deployment on AWS EC2**.
 
